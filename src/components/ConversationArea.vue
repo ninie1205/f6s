@@ -16,7 +16,7 @@ const isMine = (id: number) => {
 onMounted(() => {
   emitter.on('scrollToLast', () => {
     setTimeout(() => {
-      chatInner.value.scrollTop = chatInner.value?.scrollHeight
+      if (chatInner.value) chatInner.value.scrollTop = chatInner.value?.scrollHeight
     }, 200)
   })
 })
@@ -32,6 +32,7 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .chat-inner {
+  overflow: visible;
   overflow-y: auto;
 }
 .entry {

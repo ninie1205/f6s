@@ -24,7 +24,11 @@ export default {
     })
     mock.onPost("/api/addMessage").reply((config) => {
       const data = JSON.parse(config.data)
-      return [200, data ]
-    });
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve([200, data])
+        }, delay)
+      })
+    })
   }
 }

@@ -10,7 +10,7 @@ const $client: any = inject("$client")
 
 const addNewContent = () => {
   addConversation({
-    id: chatConversation.value[chatConversation.value.length-1].id + 1,
+    id: chatConversation[chatConversation.length-1].id + 1,
     from: toRaw(chatCurrentUser.value),
     message: toRaw(textareaContent.value.innerText),
     date: new Date().toLocaleString('en-GB', { timeZone: 'UTC' })

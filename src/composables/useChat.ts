@@ -1,9 +1,9 @@
-import { ref, inject } from 'vue'
+import { ref, reactive, inject } from 'vue'
 import { isAxiosError } from 'axios'
 import useHelpers from './useHelpers'
 
 const chatCurrentUser = ref()
-const chatConversation = ref()
+const chatConversation = reactive<any[]>([])
 
 export default function useUser() {
   const { errorHelper } = useHelpers()
@@ -24,8 +24,8 @@ export default function useUser() {
   async function getConversation() {
     const $client: any = inject("$client")
     try {
-        const { data } = await $client.get('/api/conversations')
-        if (data?.conversation) chatConversation.value = JSON.parse(data?.conversation)
+        const { data } = await $client.get('/api/conversation')
+        if (data?.conversation) chatConversation.push(...JSON.parse(data?.conversation))
     } catch (error) {
       if (isAxiosError(error)) {
         errorHelper(error)
@@ -33,9 +33,12 @@ export default function useUser() {
     }
   }
   async function addConversation(conversation: any, client: any) {
+    console.log("🚀 ~ addConversation ~ conversation:", conversation)
+    chatConversation.push(conversation)
     try {
       const { data } = await client.post('/api/addMessage', conversation)
-      if (data) chatConversation.value.push(data)
+      console.log("🚀 ~ addConversation ~ data:", data)
+      if (data) chatConversation[chatConversation.length - 1] = data
     } catch (error) {
       if (isAxiosError(error)) {
         errorHelper(error)
