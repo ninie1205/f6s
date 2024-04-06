@@ -34,6 +34,7 @@ onMounted(() => {
 .chat-inner {
   overflow: visible;
   overflow-y: auto;
+  padding-right: 1rem;
 }
 .entry {
   margin-top: 1.75rem;

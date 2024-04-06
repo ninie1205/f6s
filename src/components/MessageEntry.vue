@@ -77,6 +77,8 @@ defineProps(['messageEntry'])
   .is-mine & {
     background-color: #ddefff;
   }
-
+  @media (max-width: 575px) {
+    max-width: none;
+  }
 }
 </style>
