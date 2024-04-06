@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { ref, onMounted, inject } from 'vue'
 import MessageEntry from '@/components/MessageEntry.vue'
-import useChat from '@/composables/useChat'
+import { useChatStore } from '@/stores/chat'
 
 const emitter: any = inject('emitter')
 
-const { chatCurrentUser } = useChat()
+const { getCurrentUser } = useChatStore()
 const chatInner = ref()
 
 defineProps(['chatConversation'])
 const isMine = (id: number) => {
-  return id === chatCurrentUser.value?.id
+  return id === getCurrentUser?.id
 }
 
 onMounted(() => {

@@ -1,11 +1,13 @@
 <script setup lang="ts">
-
+import { useChatStore } from '@/stores/chat'
 import useChat from '@/composables/useChat'
-import { onBeforeMount } from 'vue'
+import { onBeforeMount, toRefs } from 'vue'
 import ConversationArea from '@/components/ConversationArea.vue'
 import ComposeArea from '@/components/ComposeArea.vue'
 
-const { chatConversation, getUserDetails, getConversation } = useChat()
+const { getUserDetails, getConversation } = useChat()
+const { chatConversation: chatConversation } = toRefs(useChatStore())
+
 onBeforeMount(async () => {
   await Promise.allSettled[getUserDetails(), getConversation()]
 })

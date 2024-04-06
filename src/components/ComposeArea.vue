@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { ref, inject, toRaw } from 'vue'
 import useChat from '@/composables/useChat'
+import { useChatStore } from '@/stores/chat'
 
-const { chatCurrentUser, chatConversation, addConversation } = useChat()
+const { addConversation } = useChat()
+const { getCurrentUser, getChatConversation } = useChatStore()
+
 const textareaContent = ref()
 const emitter: any = inject('emitter')
 const $client: any = inject("$client")
@@ -10,8 +13,8 @@ const $client: any = inject("$client")
 
 const addNewContent = () => {
   addConversation({
-    id: chatConversation[chatConversation.length-1].id + 1,
-    from: toRaw(chatCurrentUser.value),
+    id: getChatConversation[getChatConversation.length-1].id + 1,
+    from: getCurrentUser,
     message: toRaw(textareaContent.value.innerText),
     date: new Date().toLocaleString('en-GB', { timeZone: 'UTC' })
   }, $client)
